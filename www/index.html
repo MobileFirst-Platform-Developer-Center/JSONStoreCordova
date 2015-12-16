@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!--
+Copyright 2015 IBM Corp.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+		<title>JSONStore Sample</title>
+		<link rel="stylesheet" href="css/index.css" />
+	</head>
+    
+	<body>
+		<div id="header"><h4>JSONStore Hybrid</h4></div>
+
+		<div id="container">
+			<div class="group1">
+				<input id='init-username' class='input-line-2' type='text' placeholder='user (optional)'/>
+				<input id='init-password' class='input-line-2' type='text' placeholder='pass (optional)'/>
+			
+				<button id='init' class='button-line-1'>Initialize (Login/Open)</button>
+				<button id='close' class='button-line-1'>Close All (Logout)</button>
+			
+				<button id='destroy' class='button-line-1'>Destroy Everything</button>
+				<button id='remove-collection' class='button-line-1'>Remove Collection</button>
+			
+				<hr>
+			
+				<input id='add-name' class='input-line-2' type='text' placeholder='Enter Name'/>
+				<input id='add-age' class='input-line-2' type='text' placeholder='Enter Age'/>
+			
+				<button id='add-data' class='button-line-1'>Add Data</button>
+			
+				<hr>
+			
+				<input id='find-search' class='input-line-1' type='text' placeholder='Search Field'/>
+				<input id='find-limit' class='input-line-2' type='text' placeholder='Limit (optional)'/>
+				<input id='find-offset' class='input-line-2' type='text' placeholder='Offset (optional)'/>
+			
+				<button id='find-name' class='button-line-1'>Find By Name (Fuzzy Search)</button>
+				<button id='find-age' class='button-line-1'>Find By Age (Exact Search)</button>
+				<button id='find-all' class='button-line-1'>Find All</button>
+				
+				<hr>
+				
+				<input id='find-id' class='input-line-2' type='text' placeholder='Enter Id'/>
+			
+				<button id='find-id-btn' class='button-line-2'>Find (by id)</button>
+			
+			</div>
+		
+			<div class="group2">
+				<input id='replace-name' class='input-line-2' type='text' placeholder='Enter Name'/>
+				<input id='replace-age' class='input-line-2' type='text' placeholder='Enter Age'/>
+				<input id='replace-id' class='input-line-2' type='text' placeholder='Enter Id'/>
+			
+				<button id='replace' class='button-line-2'>Replace (by id)</button>
+			
+				<hr>
+			
+				<input id='remove-id' class='input-line-2' type='text' placeholder='Enter Id'/>
+				<button id='remove-id-btn' class='button-line-2'>Remove (by id)</button>
+			
+				<hr>
+			
+				<button id='load' class='button-line-1'>Load Data From Adapter</button>
+				<button id='get-push-required' class='button-line-1'>Get Dirty Documents</button>
+				<button id='push' class='button-line-1'>Push Changes to Adapter</button>
+			
+				<hr>
+			
+				<button id='count' class='button-line-1'>Count All</button>
+				
+				<input id='count-query' class='input-line-1' type='text' placeholder='Enter name to count'/>
+				<button id='count-query-btn' class='button-line-1'>Count By Name</button>	
+			
+				<hr>
+			
+				<input id='old-password' class='input-line-2' type='text' placeholder='Old Password'/>
+				<input id='new-password' class='input-line-2' type='text' placeholder='New Password'/>
+				<input id='current-username' class='input-line-2' type='text' placeholder='user (optional)'/>
+			
+				<button id='change-password' class='button-line-2'>Change Password</button>
+			
+				<hr>
+			
+				<input id='enter-key' class='input-line-2' type='text' placeholder='Key'/>
+				<input id='enter-value' class='input-line-2' type='text' placeholder='Value'/>
+				<button id='add-key-value-pair' class='button-line-1'>Add Key/Value Pair</button>
+			
+				<input id='search-by-key' class='input-line-2' type='text' placeholder='Key'/>
+				<button id='find-value-with-key' class='button-line-2'>Find Value</button>
+			</div>
+			<br class="clear" />
+		</div>
+		
+		<div id="consoleContainer">
+			<div id="console"></div>
+		</div>
+
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+	</body>
+</html>
