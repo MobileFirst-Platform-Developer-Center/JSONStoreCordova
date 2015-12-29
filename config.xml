@@ -1,21 +1,5 @@
-<!--
-Copyright 2015 IBM Corp.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
-
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.mfp.jsonstore" version="1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.mfp.jsonstore" version="1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:mfp="http://www.ibm.com/mobilefirst/cordova-plugin-mfp">
     <name>JSONStore</name>
     <description>
         A sample Apache Cordova application demonstrating the MobileFirstPlatform Foundation JSONStore feature.
@@ -24,9 +8,6 @@ limitations under the License.
         MobileFirst Platform Foundation team
     </author>
     <content src="index.html" />
-    <plugin name="cordova-plugin-mfp" spec="~8.0" />
-    <plugin name="cordova-plugin-splashscreen" spec="~3" />
-    <plugin name="cordova-plugin-whitelist" spec="~1" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -89,20 +70,22 @@ limitations under the License.
         <splash height="1242" src="res/screen/ios/Default-736h-Landscape~iphone.png" width="2208" />
     </platform>
     <mfp:android>
-        <mfp:sdkChecksum>2363003197</mfp:sdkChecksum>
+        <mfp:sdkChecksum>1526960219</mfp:sdkChecksum>
         <mfp:appChecksum>0</mfp:appChecksum>
         <mfp:security>
             <mfp:encryptWebResources enabled="false" />
             <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
         </mfp:security>
+        <mfp:simpleDataSharing appFamilyName="" sharedCookies="" userCertSharingEnabled="false" />
     </mfp:android>
     <mfp:ios>
-        <mfp:sdkChecksum>0</mfp:sdkChecksum>
+        <mfp:sdkChecksum>184231773</mfp:sdkChecksum>
         <mfp:appChecksum>0</mfp:appChecksum>
         <mfp:security>
             <mfp:encryptWebResources enabled="false" />
             <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
         </mfp:security>
+        <mfp:simpleDataSharing appFamilyName="" sharedCookies="" userCertSharingEnabled="false" />
     </mfp:ios>
     <mfp:windows>
         <mfp:sdkChecksum>0</mfp:sdkChecksum>
@@ -111,10 +94,17 @@ limitations under the License.
             <mfp:encryptWebResources enabled="false" />
             <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
         </mfp:security>
+        <mfp:simpleDataSharing appFamilyName="" sharedCookies="" userCertSharingEnabled="false" />
     </mfp:windows>
-    <mfp:platformVersion>8.0.0.00-20151219-1611</mfp:platformVersion>
+    <mfp:platformVersion>8.0.0.00-20151228-1047</mfp:platformVersion>
     <mfp:clientCustomInit enabled="false" />
-    <mfp:server runtime="mfp" url="http://10.0.0.1:9080" />
+    <mfp:server runtime="mfp" url="http://9.148.225.230:9080" />
     <mfp:directUpdateAuthenticityPublicKey />
     <mfp:languagePreferences>en</mfp:languagePreferences>
+    <engine name="ios" spec="https://github.com/apache/cordova-ios.git#4.0.1" />
+    <engine name="android" spec="~4.1.1" />
+    <plugin name="cordova-plugin-mfp" spec="~8.0" />
+    <plugin name="cordova-plugin-splashscreen" spec="~3" />
+    <plugin name="cordova-plugin-whitelist" spec="~1" />
+    <plugin name="cordova-plugin-mfp-jsonstore" spec="~8.0.201512280955" />
 </widget>
