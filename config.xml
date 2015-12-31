@@ -98,7 +98,7 @@
     </mfp:windows>
     <mfp:platformVersion>8.0.0.00-20151228-1047</mfp:platformVersion>
     <mfp:clientCustomInit enabled="false" />
-    <mfp:server runtime="mfp" url="http://9.148.225.230:9080" />
+    <mfp:server runtime="mfp" url="http://9.148.225.227:9080" />
     <mfp:directUpdateAuthenticityPublicKey />
     <mfp:languagePreferences>en</mfp:languagePreferences>
     <engine name="ios" spec="https://github.com/apache/cordova-ios.git#4.0.1" />

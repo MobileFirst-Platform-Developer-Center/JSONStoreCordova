@@ -1,14 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--
 	Licensed Materials - Property of IBM
 	5725-I43 (C) Copyright IBM Corp. 2011, 2013. All Rights Reserved.
 	US Government Users Restricted Rights - Use, duplication or
 	disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
--->
-<mfp:adapter name="people"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:mfp="http://www.ibm.com/mfp/integration"
-	xmlns:http="http://www.ibm.com/mfp/integration/http">
+--><mfp:adapter xmlns:mfp="http://www.ibm.com/mfp/integration" xmlns:http="http://www.ibm.com/mfp/integration/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="people">
 
 	<displayName>people</displayName>
 	<description>people</description>
@@ -27,9 +22,9 @@
 		</connectionPolicy>
 	</connectivity>
 
-	<procedure name="getPeople" secured="false"></procedure>
-	<procedure name="pushPeople" secured="false"></procedure>
-	<procedure name="addPerson" secured="false"></procedure>
-	<procedure name="removePerson" secured="false"></procedure>
-	<procedure name="replacePerson" secured="false"></procedure>
+	<procedure name="getPeople"/>
+	<procedure name="pushPeople"/>
+	<procedure name="addPerson"/>
+	<procedure name="removePerson"/>
+	<procedure name="replacePerson"/>
 </mfp:adapter>
