@@ -77,7 +77,6 @@
         <mfp:sdkChecksum>4105398763</mfp:sdkChecksum>
         <mfp:appChecksum>0</mfp:appChecksum>
         <mfp:security>
-            <mfp:encryptWebResources enabled="false" />
             <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
         </mfp:security>
         <mfp:simpleDataSharing appFamilyName="" sharedCookies="" userCertSharingEnabled="false" />
@@ -87,7 +86,6 @@
         <mfp:sdkChecksum>184231773</mfp:sdkChecksum>
         <mfp:appChecksum>0</mfp:appChecksum>
         <mfp:security>
-            <mfp:encryptWebResources enabled="false" />
             <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
         </mfp:security>
         <mfp:simpleDataSharing appFamilyName="" sharedCookies="" userCertSharingEnabled="false" />
@@ -96,7 +94,6 @@
         <mfp:sdkChecksum>0</mfp:sdkChecksum>
         <mfp:appChecksum>0</mfp:appChecksum>
         <mfp:security>
-            <mfp:encryptWebResources enabled="false" />
             <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
         </mfp:security>
         <mfp:simpleDataSharing appFamilyName="" sharedCookies="" userCertSharingEnabled="false" />
