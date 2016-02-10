@@ -80,7 +80,6 @@
             <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
         </mfp:security>
         <mfp:simpleDataSharing appFamilyName="" sharedCookies="" userCertSharingEnabled="false" />
-        <mfp:publicSigningKey />
     </mfp:android>
     <mfp:ios>
         <mfp:sdkChecksum>184231773</mfp:sdkChecksum>
@@ -102,21 +101,18 @@
             <mfp:security>
                 <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
             </mfp:security>
-            <mfp:packageFamilyName />
         </mfp:windows8>
         <mfp:windowsphone8>
             <mfp:sdkChecksum>0</mfp:sdkChecksum>
             <mfp:security>
                 <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
             </mfp:security>
-            <mfp:packageFamilyName />
         </mfp:windowsphone8>
         <mfp:windows10>
             <mfp:sdkChecksum>0</mfp:sdkChecksum>
             <mfp:security>
                 <mfp:testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3" />
             </mfp:security>
-            <mfp:packageFamilyName />
         </mfp:windows10>
     </mfp:windows>
     <mfp:platformVersion>8.0.0.00-20160121-1305</mfp:platformVersion>
