@@ -1,6 +1,6 @@
 IBM MobileFirst Platform Foundation
 ===
-### JSONStoreCordova
+## JSONStoreCordova
 
 ### Tutorials
 https://mobilefirstplatform.ibmcloud.com/tutorials/en/foundation/8.0/using-the-mfpf-sdk/jsonstore-cordova/
