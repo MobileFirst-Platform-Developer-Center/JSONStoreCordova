@@ -115,7 +115,7 @@
             </mfp:security>
         </mfp:windows10>
     </mfp:windows>
-    <mfp:platformVersion>8.0.0.00-20160121-1305</mfp:platformVersion>
+    <mfp:platformVersion>8.0.0.00-20160323-1609</mfp:platformVersion>
     <mfp:clientCustomInit enabled="false" />
     <mfp:server runtime="mfp" url="http://localhost:9080" />
     <mfp:directUpdateAuthenticityPublicKey />
