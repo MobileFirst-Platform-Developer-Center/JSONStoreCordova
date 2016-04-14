@@ -46,7 +46,8 @@ collections[collectionName].adapter = {
 //****************************************************
 function wlCommonInit(){
     document.getElementById("initCollection").addEventListener("click", initCollection, false);
-    document.getElementById("initSecuredCollection").addEventListener("click", initSecuredCollection, false);
+    document.getElementById("initSecuredCollection").addEventListener("click", function(){ initCollection("secured"); }, false);
+    document.getElementById("destroyCollectionButton").addEventListener("click", destroy, false);
     document.getElementById("submitNewDocumentData").addEventListener("click", addData, false);
     
     // Retrieve the requested API and calls the appropriate function
@@ -84,33 +85,40 @@ function displayDiv(divName, displayStatus){
 //****************************************************
 // initCollection
 //****************************************************
-function initCollection(){   
+function initCollection(isSecured){
+    if(isSecured == "secured"){
+        options.username = document.getElementById("initUsername").value;
+        options.password = document.getElementById("initPassword").value;
+    }  
+     
 	WL.JSONStore.init(collections, options)
       .then(function () {
             buildSelectOptions(document.getElementById("api_select"));
             document.getElementById("initCollection_screen").style.display = "none";
             document.getElementById("apiCommands_screen").style.display = "block";
+            if(isSecured == "secured") {
+                document.getElementById("resultsDiv").innerHTML = "Secured Collection Initialized Successfuly<br>User Name: "
+                                                                    + options.username +" | Password: "+ options.password;
+            }
+            else {
+                document.getElementById("resultsDiv").innerHTML = "Collection Initialized Successfuly";
+            }
 	    })
         .fail(function (errorObject) {
 		    alert("collection creation failure: "+ JSON.stringify(errorObject));
 	});   
-} 
+}
 
 //****************************************************
-// initSecuredCollection
+// destroyCollections
 //****************************************************
-function initSecuredCollection(){
-    options.username = document.getElementById("initUsername").value;
-    options.password = document.getElementById("initPassword").value;
-    
-    WL.JSONStore.init(collections, options)
-      .then(function () {
-	        alert("secured collection initialized\nUser Name: "+ document.getElementById("initUsername").value +"\nPassword: "+ document.getElementById("initPassword").value);
-            document.getElementById("initCollection_screen").style.display = "none";
-            document.getElementById("apiCommands_screen").style.display = "block";
-	    })
-        .fail(function (errorObject) {
-		    alert("collection creation failure: "+ JSON.stringify(errorObject));
+function destroy(){
+    WL.JSONStore.destroy().then(function () {
+		alert("Collections Destroyed Successfuly!");
+         document.getElementById("apiCommands_screen").style.display = "none";
+        document.getElementById("initCollection_screen").style.display = "block";      		
+	}).fail(function (errorObject) {
+		alert("Failed to Destroy!");
 	});
 }
 
