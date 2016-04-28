@@ -49,12 +49,24 @@ function wlCommonInit(){
     document.getElementById("initSecuredCollection").addEventListener("click", function(){ initCollection("secured"); }, false);
     document.getElementById("destroyCollectionButton").addEventListener("click", destroy, false);
     document.getElementById("submitNewDocumentData").addEventListener("click", addData, false);
+    document.getElementById("findById").addEventListener("click", findById, false);
+    document.getElementById("findByName").addEventListener("click", findByName, false);
+    document.getElementById("findByAge").addEventListener("click", findByAge, false);
+    document.getElementById("findAll").addEventListener("click", findAll, false);
     
     // Retrieve the requested API and calls the appropriate function
     var obj = document.getElementById("api_select");
-    obj.addEventListener("change", function(){
-        if(obj.selectedIndex == 1){ displayDiv("AddDataDiv", "block"); }
-        else if(obj.selectedIndex == 2){ displayDiv("FindDocDiv", "block"); }
+    obj.addEventListener("change", function() {
+        // Add Document
+        if(obj.selectedIndex == 1){
+          displayDiv("AddDataDiv", "block");
+          obj.selectedIndex = 0;
+        }
+        // Find Document
+        else if(obj.selectedIndex == 2) {
+          displayDiv("FindDocDiv", "block");
+          obj.selectedIndex = 0;
+        }
     });
 }
 
@@ -68,8 +80,8 @@ function buildSelectOptions(obj){
     obj.options[2] = new Option("findDoc", "Find Document", true, false);
     obj.options[3] = new Option("replaceDoc", "Replace Document", true, false);
     obj.options[4] = new Option("removeDoc", "Remove Document", true, false);
-    obj.options[4] = new Option("countDocs", "Count Documents", true, false);
-    obj.options[4] = new Option("fileInfo", "File Info", true, false);
+    obj.options[5] = new Option("countDocs", "Count Documents", true, false);
+    obj.options[6] = new Option("fileInfo", "File Info", true, false);
 }
 
 //*********************************************************************
@@ -141,12 +153,98 @@ function addData(){
     catch(e){
         alert("WL.JSONStore Add Data Failure");  
     }
+    document.getElementById("addName").value = "";
+    document.getElementById("addAge").value = "";
     displayDiv("AddDataDiv", "none");
 }
 
 //****************************************************
-// findDoc (Find Document)
+// findById
 //****************************************************
-function findDoc(){
-    alert("findDoc");
+function findById(){
+    var id = parseInt(document.getElementById("findWhat").value, 10) || '';
+
+    try {
+        WL.JSONStore.get(collectionName).findById(id).then(function (res) {
+	        alert(JSON.stringify(res));
+            //document.getElementById("resultsDiv").innerHTML = JSON.stringify(res);
+		}).fail(function (errorObject) {
+            alert(errorObject.msg);
+            //document.getElementById("resultsDiv").innerHTML = errorObject.msg;
+		});
+	} catch (e) {
+		alert(e.Messages);
+	}
+  document.getElementById("findWhat").value = "";
+}
+
+//****************************************************
+// findByName
+//****************************************************
+function findByName(){
+    var name = document.getElementById("findWhat").value || '';
+    var query = {};
+    query.name = name;
+    if(name != ""){
+       try {
+        WL.JSONStore.get(collectionName).find(query, options).then(function (res) {
+            alert(JSON.stringify(res));
+        }).fail(function (errorObject) {
+            alert(errorObject.msg);
+        });
+        } catch (e) {
+            alert(e.Messages);
+        } 
+    }
+    else {
+        alert("Please enter a name to find");
+    }
+    
+  document.getElementById("findWhat").value = "";
+}
+
+//****************************************************
+// findByAge
+//****************************************************
+function findByAge(){
+    var age = document.getElementById("findWhat").value || '';
+    var query = {};
+    query.age = age;
+    if(age == "" || isNaN(age)){
+        alert("Please enter a valid age to find"); 
+    }
+    else {
+       try {
+        WL.JSONStore.get(collectionName).find(query, options).then(function (res) {
+            alert(JSON.stringify(res));
+        }).fail(function (errorObject) {
+            alert(errorObject.msg);
+        });
+        } catch (e) {
+            alert(e.Messages);
+        } 
+    }
+    
+  document.getElementById("findWhat").value = "";
+}
+
+
+
+//****************************************************
+// findAll
+//****************************************************
+function findAll(){
+    options.limit = 10;
+
+    try {
+        WL.JSONStore.get(collectionName).findAll(options).then(function (res) {
+	        alert(JSON.stringify(res));
+          document.getElementById("resultsDiv").innerHTML = JSON.stringify(res);
+		}).fail(function (errorObject) {
+          document.getElementById("resultsDiv").innerHTML = errorObject.msg;
+		});
+	} catch (e) {
+		alert(e.Messages);
+	}
+  document.getElementById("findWhat").value = "";
 }

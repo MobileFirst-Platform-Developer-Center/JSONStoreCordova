@@ -60,7 +60,7 @@ button {
 	height: 3em;
 	font-size: 0.8em;
 	margin: 0.5em 0 0.2em 0;
-	background-color: #eee;	
+	background-color: #eee;
 }
 
 .submit {
@@ -69,8 +69,14 @@ button {
 	background-color: #eee;
 }
 
+.WideSubmitButton {
+	width: 90%;
+	height: 3em;
+	background-color: #eee;
+}
+
 .CloseRemoveDestroyButtons {
-    width: 24%;
+    width: 32%;
 }
 
 #ApisAdditionalInfoWrapperDiv {
@@ -83,5 +89,5 @@ button {
 
 .additionalInfoDiv {
    width:100%;
-   display: none; 
+   display: none;
 }
