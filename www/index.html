@@ -30,24 +30,28 @@ limitations under the License.
     </head>
 
     <body>
-        <div id="header">
-            <h1>JSONStore Cordova</h1>
-        </div>
-        <div id="wrapper">
+        <div id="container">
+            <div id="header">
+                <h1>JSONStore Cordova</h1>
+            </div>
+                     
             <div id="initCollection_screen">
-                <h2 style="margin-button:4px">Initialize a collection:</h2>
+                <h3 style="margin-button:3px">Initialize a collection:</h3>
                 <center><button id="initCollection">Initialize collection</button></center>
                 <hr />
-                <h2 style="margin-button:4px">Initialize a secured collection:</h2>
-                A collection can be initializes as a <b>secured collection</b> by defining a username and password.
-                When initializing a collection with username and password - the collection data will be encrypted.
-                <br /><br />
-                <input id='initUsername' type='text' placeholder='user name'/>
-        		<input id='initPassword' type='text' placeholder='password'/>
-                <center><button id="initSecuredCollection">Initialize secured collection</button></center>
+                <h3 style="margin-button:3px">Initialize a secured collection:</h3>
+                <p>A collection can be initializes as a <b>secured collection</b> by defining a username and password.
+                When initializing a collection with username and password - the collection data will be encrypted.</p>                
+                    <center><input id='initUsername' type='text' placeholder='user name'/>
+        		    <input id='initPassword' type='text' placeholder='password'/>
+                    <button id="initSecuredCollection">Initialize secured collection</button></center>                
             </div>
             <div id="apiCommands_screen" style="display:none">
-              <h2>JSONStore API</h2>
+              <div id="CloseRemoveDestroyButtonsDiv" align="center">
+                <button id="closeCollectionButton" class="CloseRemoveDestroyButtons">Close<br/>collection</button>
+                <button id="removeCollectionButton" class="CloseRemoveDestroyButtons">Remove<br/>collection</button>
+                <button id="destroyAllCollectionsButton" class="CloseRemoveDestroyButtons">Destroy<br/>collection</button>
+              </div>
               <select id="api_select">
                 <option value="0">-- Select JSONStore action --</option>
               </select>
@@ -55,7 +59,7 @@ limitations under the License.
                   <div id="AddDataDiv" class="additionalInfoDiv">
                       <input id='addName' type='text' placeholder='Name'/>
         		      <input id='addAge' type='text' placeholder='Age'/>
-                      <button id="submitNewDocumentData" class="submit">submit</button>
+                      <button id="submitNewDocumentData" class="submit">Submit</button>
                   </div>
                   <div id="FindDocDiv" class="additionalInfoDiv">
                       <input id='findWhat' type='text' placeholder='Find Criteria'/>                    
@@ -64,16 +68,31 @@ limitations under the License.
                       <button id="findByAge" class="submit">Find by Age</button><br/>
                       <button id="findAll" class="WideSubmitButton">Find All</button>
                   </div>
+                  <div id="ReplaceDocDiv" class="additionalInfoDiv">
+                      <input id='replaceDocId' type='text' placeholder='ID of document to replace (update)'/>                    
+                      <button id="showDocToReplace" class="WideSubmitButton">Show Document</button>
+                      <div id="DocToReplaceDiv" style="padding-top:10px;display:none">
+                          <input id='replaceName' type='text'/>
+        		          <input id='replaceAge' type='text'/>
+                           <button id="submitReplacedDoc" class="WideSubmitButton">Replace (update document)</button>
+                      </div>
+                  </div>
+                  <div id="RemoveDocDiv" class="additionalInfoDiv">
+                      <input id='docId' type='text' placeholder='Document ID for Removal'/>
+                      <button id="removeDoc" class="WideSubmitButton">Remove</button>
+                  </div>                  
+                  <div id="ChangePasswordDiv" class="additionalInfoDiv">
+        		      <input id='newPassword' type='text' placeholder='New password'/>
+                      <button id="submitNewPassword" class="submit">Submit</button>
+                  </div>
               </div>
               <hr />
-              <div id="resultsDiv" style="height:50px;margin-top:8px;border:1px solid gray"></div>
-              <hr />
-              <div align="center" style="margin-top:8px">
-                <button id="closeCollectionButton" class="CloseRemoveDestroyButtons" disabled>Close<br/>collection</button>
-                <button id="removeCollectionButton" class="CloseRemoveDestroyButtons" disabled>Remove<br/>collection</button>
-                <button id="destroyCollectionButton" class="CloseRemoveDestroyButtons">Destroy<br/>collection</button>
-              </div>
+                         
             </div>
-        </div>
+           </div>
+           <div id="console">
+              <div id="resultsDiv"></div>                
+           </div>
+        
     </body>
 </html>

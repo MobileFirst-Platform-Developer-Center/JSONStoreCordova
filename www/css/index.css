@@ -13,19 +13,38 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-
-body {
+html, body {
 	-webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
 	-webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+	min-height:100%;
+	max-height:100%;
+	height:100%;
 	margin: 0;
+	padding: 0;
 	font-family: sans-serif;
 	background-color: #ccc;
 }
 
-#wrapper {
+/*#wrapper {
 	margin-left: 8px;
 	padding-top: 50px;
 	width: 94%;
+}*/
+
+#container {
+	width: 100%;
+	height: 70%;
+	position: fixed;
+	top: 0;
+	overflow-y: auto;
+}
+
+#console {
+	width: 100%;
+	height: 30%;
+	position: fixed;
+	bottom: 0;
+	overflow-y: auto;
 }
 
 #header {
@@ -35,9 +54,23 @@ body {
 	height: 38px;
 	line-height: 38px;
 	border-bottom: 1px solid white;
-	position: fixed;
+	position: relative;
 	width: 100%;
-	padding-top: 5px;
+	/*padding-top: 5px;*/
+}
+
+#initCollection_screen{
+	padding: 8px;
+}
+
+#initCollection_screen h3 {
+	margin: 2px;
+	padding: 2px;
+}
+
+#initCollection_screen p {
+	margin: 0;
+	padding: 5px;
 }
 
 h1 {
@@ -75,19 +108,40 @@ button {
 	background-color: #eee;
 }
 
-.CloseRemoveDestroyButtons {
-    width: 32%;
-}
-
 #ApisAdditionalInfoWrapperDiv {
-    height:200px;
-    margin-top:8px;
     border:1px solid gray;
     padding: 5px;
 }
 
-
 .additionalInfoDiv {
    width:100%;
    display: none;
+}
+
+#resultsDiv {
+	width: 100%;
+	height: 200px;
+	display:block;
+	float: bottom;
+	position:absolute;
+	padding: 5px;
+	background-color:black;
+	color: white;
+	overflow: auto;
+	
+}
+
+.CloseRemoveDestroyButtons {
+	margin: 5px;
+	background-color: #1D4D90;
+	color: white;
+	border: 2px solid #FFFFFF;
+	font-size: 14px;
+	width: 26%;
+	height:40px;
+	border-radius: 8px;
+}
+
+button:focus {
+    outline: none;
 }
