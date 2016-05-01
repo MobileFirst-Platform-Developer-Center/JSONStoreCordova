@@ -165,7 +165,8 @@ function initCollection(isSecured){
 function closeCollection(){
     WL.JSONStore.closeAll().then(function () {
          document.getElementById("apiCommands_screen").style.display = "none";
-         document.getElementById("initCollection_screen").style.display = "block";      		
+         document.getElementById("initCollection_screen").style.display = "block";
+         document.getElementById("resultsDiv").innerHTML = "Collection Closed Successfuly";      		
 	}).fail(function (errorObject) {
 		alert("Failed to Close collection!");
 	});
@@ -177,9 +178,9 @@ function closeCollection(){
 //****************************************************
 function removeCollection(){
     WL.JSONStore.get(collectionName).removeCollection().then(function () {
-		alert("Collection Removed Successfuly!");
          document.getElementById("apiCommands_screen").style.display = "none";
-         document.getElementById("initCollection_screen").style.display = "block";      		
+         document.getElementById("initCollection_screen").style.display = "block";
+         document.getElementById("resultsDiv").innerHTML = "Collection Removed Successfuly";      		
 	}).fail(function (errorObject) {
 		alert("Failed to Remove collection!");
 	});
@@ -193,7 +194,8 @@ function destroy(){
     WL.JSONStore.destroy().then(function () {
 		alert("Collection Destroyed Successfuly!");
          document.getElementById("apiCommands_screen").style.display = "none";
-        document.getElementById("initCollection_screen").style.display = "block";      		
+        document.getElementById("initCollection_screen").style.display = "block"; 
+        document.getElementById("resultsDiv").innerHTML = "Collection Destroyed Successfuly";     		
 	}).fail(function (errorObject) {
 		alert("Failed to Destroy collection!");
 	});
