@@ -17,6 +17,10 @@
 var Messages = {};
 var wlInitOptions = {};
 
+// This flag indicates if we are in the middle of a replace() action - 
+// It is used when we close, remove or destroy the collection in this situation - we should update the UI.
+var in_middle_of_replace = false;
+
 //****************************************************
 // JSONStore collection(s) setup
 //****************************************************
@@ -149,6 +153,13 @@ function initCollection(isSecured){
 // - Log out from the current collection
 //****************************************************
 function closeCollection(){
+    // If we closed the collection in the middle of a replace() action - then clear the fields and hide the div
+    if(in_middle_of_replace){
+        clearAndHideReplaceDiv();
+        document.getElementById("ReplaceDocDiv").style.display = "none";
+        in_middle_of_replace = false;      
+    }
+    
     WL.JSONStore.closeAll().then(function () {
          document.getElementById("apiCommands_screen").style.display = "none";
          document.getElementById("initCollection_screen").style.display = "block";
@@ -163,6 +174,13 @@ function closeCollection(){
 // - Deletes all the collection's documents 
 //****************************************************
 function removeCollection(){
+    // If we removed the collection in the middle of a replace() action - then clear the fields and hide the div
+    if(in_middle_of_replace){
+        clearAndHideReplaceDiv();
+        document.getElementById("ReplaceDocDiv").style.display = "none";
+        in_middle_of_replace = false;
+    }
+    
     WL.JSONStore.get(collectionName).removeCollection().then(function () {
          document.getElementById("apiCommands_screen").style.display = "none";
          document.getElementById("initCollection_screen").style.display = "block";
@@ -177,6 +195,13 @@ function removeCollection(){
 // - Completely wipes data for all users
 //****************************************************
 function destroy(){
+    // If we destroyed the collection in the middle of a replace() action - then clear the fields and hide the div
+    if(in_middle_of_replace){
+        clearAndHideReplaceDiv();
+        document.getElementById("ReplaceDocDiv").style.display = "none";
+        in_middle_of_replace = false;
+    }
+    
     WL.JSONStore.destroy().then(function () {
 		alert("Collection Destroyed Successfuly!");
         document.getElementById("apiCommands_screen").style.display = "none";
@@ -303,6 +328,7 @@ function findAll(){
 // replaceShowDoc
 //****************************************************
 function replaceShowDoc(){
+   in_middle_of_replace = true;
    var id = parseInt(document.getElementById("replaceDocId").value, 10);
    document.getElementById("DocToReplaceDiv").style.display = "block";
    try {
@@ -315,6 +341,16 @@ function replaceShowDoc(){
         } catch (e) {
             alert(e.Messages);
         }
+}
+
+//****************************************************
+// clearAndHideReplaceDiv
+//****************************************************
+function clearAndHideReplaceDiv(){
+    document.getElementById("replaceDocId").value = "";
+    document.getElementById("replaceName").value = "";
+    document.getElementById("replaceAge").value = "";
+    document.getElementById("DocToReplaceDiv").style.display = "none";
 }
 
 //****************************************************
@@ -332,13 +368,13 @@ function replaceDoc(){
     
     WL.JSONStore.get(collectionName).replace(doc, options).then(function (numberOfDocumentsReplaced) {
         document.getElementById("resultsDiv").innerHTML = "Document updated successfuly";
-        document.getElementById("replaceDocId").value = "";
-        document.getElementById("replaceName").value = "";
-        document.getElementById("replaceAge").value = "";
-        document.getElementById("DocToReplaceDiv").style.display = "none";
+        clearAndHideReplaceDiv();
+        in_middle_of_replace = false;
     })
     .fail(function (errorObject) {
         document.getElementById("resultsDiv").innerHTML = "Failed to update document: " + errorObject.msg
+        clearAndHideReplaceDiv();
+        in_middle_of_replace = false;
     });
 }
 
