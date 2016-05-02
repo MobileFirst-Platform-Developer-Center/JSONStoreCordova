@@ -150,6 +150,13 @@ select {
 	
 }
 
+#CloseRemoveDestroyButtonsDiv {
+	background-color: #727272;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	border-bottom: 1px solid white;
+}
+
 .CloseRemoveDestroyButtons {
 	margin: 5px;
 	background-color: #1D4D90;

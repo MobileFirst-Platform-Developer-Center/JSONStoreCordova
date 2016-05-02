@@ -154,7 +154,6 @@ function initCollection(isSecured){
             }
 	    })
         .fail(function (errorObject) {
-		    //alert("collection creation failure: "+ JSON.stringify(errorObject));
             document.getElementById("resultsDiv").innerHTML = JSON.stringify(errorObject);
 	});   
 }
@@ -232,10 +231,8 @@ function findById(){
 
     try {
         WL.JSONStore.get(collectionName).findById(id).then(function (res) {
-	        //alert(JSON.stringify(res));
             document.getElementById("resultsDiv").innerHTML = JSON.stringify(res);
 		}).fail(function (errorObject) {
-            //alert(errorObject.msg);
             document.getElementById("resultsDiv").innerHTML = errorObject.msg;
 		});
 	} catch (e) {
@@ -254,10 +251,8 @@ function findByName(){
     if(name != ""){
        try {
         WL.JSONStore.get(collectionName).find(query, options).then(function (res) {
-            //alert(JSON.stringify(res));
             document.getElementById("resultsDiv").innerHTML = JSON.stringify(res);
         }).fail(function (errorObject) {
-            //alert(errorObject.msg);
              document.getElementById("resultsDiv").innerHTML = errorObject.msg;
         });
         } catch (e) {
@@ -288,10 +283,8 @@ function findByAge(){
 
        try {       
         WL.JSONStore.get(collectionName).find(query, options).then(function (res) {
-            //alert(JSON.stringify(res));
             document.getElementById("resultsDiv").innerHTML = JSON.stringify(res);
         }).fail(function (errorObject) {
-            //alert(errorObject.msg);
             document.getElementById("resultsDiv").innerHTML = errorObject.msg;
         });
         } catch (e) {
@@ -309,9 +302,7 @@ function findAll(){
     options.limit = 10;
 
     try {
-        WL.JSONStore.get(collectionName).findAll(options).then(function (res) {
-	        //alert(JSON.stringify(res));
-            
+        WL.JSONStore.get(collectionName).findAll(options).then(function (res) {           
           document.getElementById("resultsDiv").innerHTML = JSON.stringify(res);
 		}).fail(function (errorObject) {
           document.getElementById("resultsDiv").innerHTML = errorObject.msg;
@@ -353,14 +344,14 @@ function replaceDoc(){
         push: true
     }
     
-    WL.JSONStore.get(collectionName).replace(doc, options)
-    .then(function (numberOfDocumentsReplaced) {
-        //alert("Document updated successfuly");
+    WL.JSONStore.get(collectionName).replace(doc, options).then(function (numberOfDocumentsReplaced) {
         document.getElementById("resultsDiv").innerHTML = "Document updated successfuly";
+        document.getElementById("replaceDocId").value = "";
+        document.getElementById("replaceName").value = "";
+        document.getElementById("replaceAge").value = "";
         document.getElementById("DocToReplaceDiv").style.display = "none";
     })
     .fail(function (errorObject) {
-        //alert("Failed to update document: " + errorObject.msg);
         document.getElementById("resultsDiv").innerHTML = "Failed to update document: " + errorObject.msg
     });
 }
@@ -374,10 +365,8 @@ function removeDoc(){
     var options = {exact: true};
     try {	
 	    WL.JSONStore.get(collectionName).remove(query, options).then(function (res) {
-		    //alert("Documents removed: " + JSON.stringify(res));
             document.getElementById("resultsDiv").innerHTML = "Documents removed: " + JSON.stringify(res)
 		}).fail(function (errorObject) {
-			//logErrorMessage(errorObject.msg);
             document.getElementById("resultsDiv").innerHTML = errorObject.msg
 		});
     } catch (e) {
@@ -392,10 +381,8 @@ function removeDoc(){
 function countDocs(){
     try {	
 				WL.JSONStore.get(collectionName).count().then(function (res) {
-					//alert("Number of documents in the collection: " + res);
                     document.getElementById("resultsDiv").innerHTML = "Number of documents in the collection: " + res;
 				}).fail(function (errorObject) {
-					//alert(errorObject.msg);
                     document.getElementById("resultsDiv").innerHTML = errorObject.msg;
 				});
 	
@@ -414,10 +401,8 @@ function changePassword(){
     }
     else{
         WL.JSONStore.changePassword(options.password, newPassword, options.username).then(function () {
-            //alert("Password changed successfuly");
             document.getElementById("resultsDiv").innerHTML = "Password changed successfuly"
         }).fail(function (errorObject) {
-            //alert("Failed to change password:\n" + errorObject.msg);
             document.getElementById("resultsDiv").innerHTML = "Failed to change password:\n" + errorObject.msg
         });
     }
