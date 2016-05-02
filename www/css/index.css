@@ -45,6 +45,7 @@ html, body {
 	position: fixed;
 	bottom: 0;
 	overflow-y: auto;
+	border-top: 2px solid white;
 }
 
 #header {
@@ -88,11 +89,20 @@ input {
 }
 
 button {
-	width: 90%;
+	/*width: 90%;*/
 	height: 3em;
 	font-size: 0.8em;
 	margin: 0.5em 0 0.2em 0;
 	background-color: #eee;
+}
+
+input {
+	width: 90%;
+}
+
+select {
+	width: 90%;
+	padding: 5px;
 }
 
 .submit {
@@ -107,12 +117,23 @@ button {
 	background-color: #eee;
 }
 
+#selectBoxDiv {
+	text-align: center;
+	padding-top: 16px;
+	padding-bottom: 10px;
+}
+
 #ApisAdditionalInfoWrapperDiv {
     padding: 5px;
 }
 
+#findWhat {
+	width: 90%;
+}
+
 .additionalInfoDiv {
    width:100%;
+   text-align: center;
    display: none;
 }
 

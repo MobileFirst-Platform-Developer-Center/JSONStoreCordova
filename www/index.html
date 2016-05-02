@@ -37,14 +37,14 @@ limitations under the License.
                      
             <div id="initCollection_screen">
                 <h3 style="margin-button:3px">Initialize a collection:</h3>
-                <center><button id="initCollection">Initialize collection</button></center>
+                <center><button id="initCollection" class="WideSubmitButton">Initialize collection</button></center>
                 <hr />
                 <h3 style="margin-button:3px">Initialize a secured collection:</h3>
                 <p>A collection can be initializes as a <b>secured collection</b> by defining a username and password.
                 When initializing a collection with username and password - the collection data will be encrypted.</p>                
                     <center><input id='initUsername' type='text' placeholder='user name'/>
         		    <input id='initPassword' type='text' placeholder='password'/>
-                    <button id="initSecuredCollection">Initialize secured collection</button></center>                
+                    <button id="initSecuredCollection" class="WideSubmitButton">Initialize secured collection</button></center>                
             </div>
             <div id="apiCommands_screen" style="display:none">
               <div id="CloseRemoveDestroyButtonsDiv" align="center">
@@ -52,9 +52,11 @@ limitations under the License.
                 <button id="removeCollectionButton" class="CloseRemoveDestroyButtons">Remove<br/>collection</button>
                 <button id="destroyAllCollectionsButton" class="CloseRemoveDestroyButtons">Destroy<br/>collection</button>
               </div>
-              <center><select id="api_select">
-                <option value="0">-- Select JSONStore action --</option>
-              </select></center>
+              <div id="selectBoxDiv">
+                  <select id="api_select">
+                    <option value="0">-- Select JSONStore action --</option>
+                </select>
+              </div>
               <div id="ApisAdditionalInfoWrapperDiv">
                   <div id="AddDataDiv" class="additionalInfoDiv">
                       <input id='addName' type='text' placeholder='Name'/>
@@ -62,11 +64,13 @@ limitations under the License.
                       <button id="submitNewDocumentData" class="submit">Submit</button>
                   </div>
                   <div id="FindDocDiv" class="additionalInfoDiv">
-                      <input id='findWhat' type='text' placeholder='Find Criteria'/>                    
-                      <button id="findById" class="submit">Find by ID</button>
-                      <button id="findByName" class="submit">Find by Name</button>
-                      <button id="findByAge" class="submit">Find by Age</button><br/>
-                      <button id="findAll" class="WideSubmitButton">Find All</button>
+                      
+                        <input id='findWhat' type='text' placeholder='Find Criteria'/>                    
+                        <button id="findById" class="submit">Find by ID</button>
+                        <button id="findByName" class="submit">Find by Name</button>
+                        <button id="findByAge" class="submit">Find by Age</button><br/>
+                        <button id="findAll" class="WideSubmitButton">Find All</button>
+                     
                   </div>
                   <div id="ReplaceDocDiv" class="additionalInfoDiv">
                       <input id='replaceDocId' type='text' placeholder='ID of document to replace (update)'/>                    

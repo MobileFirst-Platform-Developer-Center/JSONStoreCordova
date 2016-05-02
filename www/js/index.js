@@ -91,6 +91,7 @@ function wlCommonInit(){
         // Count Documents
         else if(obj.selectedIndex == 5) {
              countDocs();
+             obj.selectedIndex = 0;
         }
         // Change Password
         else if(obj.selectedIndex == 6) {
