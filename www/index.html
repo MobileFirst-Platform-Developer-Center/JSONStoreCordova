@@ -58,20 +58,21 @@ limitations under the License.
                 </select>
               </div>
               <div id="ApisAdditionalInfoWrapperDiv">
+                  <!-- Add Data -->
                   <div id="AddDataDiv" class="additionalInfoDiv">
                       <input id='addName' type='text' placeholder='Name'/>
         		      <input id='addAge' type='text' placeholder='Age'/>
                       <button id="submitNewDocumentData" class="submit">Submit</button>
                   </div>
-                  <div id="FindDocDiv" class="additionalInfoDiv">
-                      
-                        <input id='findWhat' type='text' placeholder='Find Criteria'/>                    
-                        <button id="findById" class="submit">Find by ID</button>
-                        <button id="findByName" class="submit">Find by Name</button>
-                        <button id="findByAge" class="submit">Find by Age</button><br/>
-                        <button id="findAll" class="WideSubmitButton">Find All</button>
-                     
+                  <!-- Find Documents -->
+                  <div id="FindDocDiv" class="additionalInfoDiv">                      
+                    <input id='findWhat' type='text' placeholder='Find Criteria'/>                    
+                    <button id="findById" class="submit">Find by ID</button>
+                    <button id="findByName" class="submit">Find by Name</button>
+                    <button id="findByAge" class="submit">Find by Age</button><br/>
+                    <button id="findAll" class="WideSubmitButton">Find All</button>                    
                   </div>
+                  <!-- Replace Documents Data -->
                   <div id="ReplaceDocDiv" class="additionalInfoDiv">
                       <input id='replaceDocId' type='text' placeholder='ID of document to replace (update)'/>                    
                       <button id="showDocToReplace" class="WideSubmitButton">Show Document</button>
@@ -81,10 +82,12 @@ limitations under the License.
                            <button id="submitReplacedDoc" class="WideSubmitButton">Replace (update document)</button>
                       </div>
                   </div>
+                  <!-- Remove Documents -->
                   <div id="RemoveDocDiv" class="additionalInfoDiv">
                       <input id='docId' type='text' placeholder='Document ID for Removal'/>
                       <button id="removeDoc" class="WideSubmitButton">Remove</button>
-                  </div>                  
+                  </div>
+                  <!-- Change Password -->                  
                   <div id="ChangePasswordDiv" class="additionalInfoDiv">
         		      <input id='newPassword' type='text' placeholder='New password'/>
                       <button id="submitNewPassword" class="submit">Submit</button>

@@ -25,21 +25,6 @@ var collections = {};
 var options = {};
 collections[collectionName] = {};
 collections[collectionName].searchFields = {name: 'string', age: 'integer'};
-collections[collectionName].adapter = {
-   name: 'people',
-   add: 'addPerson',
-   remove: 'removePerson',
-   replace: 'replacePerson',
-   load: {
-       procedure: 'getPeople',
-           params: [],
-           key: 'peopleList'
-       },
-   accept: function (adapterResponse) {
-       return (adapterResponse.status === 200);
-   },
-   timeout: 3000
-};
 
 //****************************************************
 // wlCommonInit
@@ -112,6 +97,7 @@ function buildSelectOptions(obj){
     obj.options[3] = new Option("replaceDoc", "Replace Document", true, false);
     obj.options[4] = new Option("removeDoc", "Remove Document", true, false);
     obj.options[5] = new Option("countDocs", "Count Documents", true, false);
+    
     if(options.username != undefined && options.password != undefined){
         obj.options[6] = new Option("changePassword", "Change Password", true, false);
     }    
@@ -193,7 +179,7 @@ function removeCollection(){
 function destroy(){
     WL.JSONStore.destroy().then(function () {
 		alert("Collection Destroyed Successfuly!");
-         document.getElementById("apiCommands_screen").style.display = "none";
+        document.getElementById("apiCommands_screen").style.display = "none";
         document.getElementById("initCollection_screen").style.display = "block"; 
         document.getElementById("resultsDiv").innerHTML = "Collection Destroyed Successfuly";     		
 	}).fail(function (errorObject) {
@@ -303,9 +289,9 @@ function findAll(){
 
     try {
         WL.JSONStore.get(collectionName).findAll(options).then(function (res) {           
-          document.getElementById("resultsDiv").innerHTML = JSON.stringify(res);
+            document.getElementById("resultsDiv").innerHTML = JSON.stringify(res);
 		}).fail(function (errorObject) {
-          document.getElementById("resultsDiv").innerHTML = errorObject.msg;
+            document.getElementById("resultsDiv").innerHTML = errorObject.msg;
 		});
 	} catch (e) {
 		alert(e.Messages);
@@ -380,15 +366,14 @@ function removeDoc(){
 //****************************************************
 function countDocs(){
     try {	
-				WL.JSONStore.get(collectionName).count().then(function (res) {
-                    document.getElementById("resultsDiv").innerHTML = "Number of documents in the collection: " + res;
-				}).fail(function (errorObject) {
-                    document.getElementById("resultsDiv").innerHTML = errorObject.msg;
-				});
-	
-			} catch (e) {
-				alert(e.Messages);
-			}
+	    WL.JSONStore.get(collectionName).count().then(function (res) {
+            document.getElementById("resultsDiv").innerHTML = "Number of documents in the collection: " + res;
+		}).fail(function (errorObject) {
+            document.getElementById("resultsDiv").innerHTML = errorObject.msg;
+		});
+	} catch (e) {
+		alert(e.Messages);
+	}
 }
 
 //****************************************************
