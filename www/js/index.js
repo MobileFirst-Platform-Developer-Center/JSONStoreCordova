@@ -17,10 +17,6 @@
 var Messages = {};
 var wlInitOptions = {};
 
-// This flag indicates if we are in the middle of a replace() action - 
-// It is used when we close, remove or destroy the collection in this situation - we should update the UI.
-var in_middle_of_replace = false;
-
 //****************************************************
 // JSONStore collection(s) setup
 //****************************************************
@@ -52,40 +48,47 @@ function wlCommonInit(){
         
     document.getElementById("submitNewDocumentData").addEventListener("click", addData, false);
     document.getElementById("removeDoc").addEventListener("click", removeDoc, false);
-    document.getElementById("submitNewPassword").addEventListener("click", changePassword, false);       
+    document.getElementById("submitNewPassword").addEventListener("click", changePassword, false); 
+                        
+    document.getElementById("initUsername").addEventListener("focus", showHideConsole, false);
+    document.getElementById("initPassword").addEventListener("focus", showHideConsole, false);                 
+    document.getElementById("addName").addEventListener("focus", showHideConsole, false);
+    document.getElementById("addAge").addEventListener("focus", showHideConsole, false); 
+    document.getElementById("findWhat").addEventListener("focus", showHideConsole, false); 
+    document.getElementById("docId").addEventListener("focus", showHideConsole, false);
+    document.getElementById("newPassword").addEventListener("focus", showHideConsole, false);  
     
     // Get the selected API from the HTML select element and use the displayDiv() function to display the appropriate HTML div
     var obj = document.getElementById("api_select");
     obj.addEventListener("change", function() {
         // Add Document
         if(obj.selectedIndex == 1){
+          showHideConsole("hide");
           displayDiv("AddDataDiv");
-          obj.selectedIndex = 0;
         }
         // Find Document
         else if(obj.selectedIndex == 2) {
+           showHideConsole("show"); 
           displayDiv("FindDocDiv");
-          obj.selectedIndex = 0;
         }
         // Replace Document
         else if(obj.selectedIndex == 3) {
+            showHideConsole("hide");
           displayDiv("ReplaceDocDiv");
-          obj.selectedIndex = 0;
         }
         // Remove Document
         else if(obj.selectedIndex == 4) {
+            showHideConsole("show");
           displayDiv("RemoveDocDiv");
-          obj.selectedIndex = 0;
         }
         // Count Documents
         else if(obj.selectedIndex == 5) {
-             countDocs();
-             obj.selectedIndex = 0;
+            showHideConsole("show");
+            countDocs();
         }
         // Change Password
         else if(obj.selectedIndex == 6) {
             displayDiv("ChangePasswordDiv");
-            obj.selectedIndex = 0;
         }
     });
 }
@@ -122,6 +125,23 @@ function displayDiv(divName){
 }
 
 //****************************************************
+// showHideConsole
+// - this function hides / displays the console div
+//   and adjust the container div height accordingly
+//****************************************************
+function showHideConsole(displayStatus){
+    if(displayStatus == "show"){              
+       document.getElementById("container").style.height = "80%";
+       document.getElementById("console").style.height = "20%";
+       document.getElementById("console").style.display = "block";  
+    }
+    else{
+       document.getElementById("container").style.height = "100%";
+       document.getElementById("console").style.display = "none";
+    }
+}
+
+//****************************************************
 // initCollection
 //****************************************************
 function initCollection(isSecured){
@@ -136,6 +156,7 @@ function initCollection(isSecured){
             document.getElementById("initCollection_screen").style.display = "none";
             document.getElementById("apiCommands_screen").style.display = "block";
             if(isSecured == "secured") {
+                showHideConsole("show");
                 document.getElementById("resultsDiv").innerHTML = "Secured Collection Initialized Successfuly<br>User Name: "
                                                                     + options.username +" | Password: "+ options.password;
             }
@@ -144,7 +165,7 @@ function initCollection(isSecured){
             }
 	    })
         .fail(function (errorObject) {
-            document.getElementById("resultsDiv").innerHTML = JSON.stringify(errorObject);
+            alert("Filed to initialize collection\n"+ JSON.stringify(errorObject));
 	});   
 }
 
@@ -152,15 +173,9 @@ function initCollection(isSecured){
 // closeCollection
 // - Log out from the current collection
 //****************************************************
-function closeCollection(){
-    // If we closed the collection in the middle of a replace() action - then clear the fields and hide the div
-    if(in_middle_of_replace){
-        clearAndHideReplaceDiv();
-        document.getElementById("ReplaceDocDiv").style.display = "none";
-        in_middle_of_replace = false;      
-    }
-    
+function closeCollection(){   
     WL.JSONStore.closeAll().then(function () {
+        showHideConsole("show");
          document.getElementById("apiCommands_screen").style.display = "none";
          document.getElementById("initCollection_screen").style.display = "block";
          document.getElementById("resultsDiv").innerHTML = "Collection Closed Successfuly";      		
@@ -173,15 +188,9 @@ function closeCollection(){
 // removeCollection
 // - Deletes all the collection's documents 
 //****************************************************
-function removeCollection(){
-    // If we removed the collection in the middle of a replace() action - then clear the fields and hide the div
-    if(in_middle_of_replace){
-        clearAndHideReplaceDiv();
-        document.getElementById("ReplaceDocDiv").style.display = "none";
-        in_middle_of_replace = false;
-    }
-    
+function removeCollection(){    
     WL.JSONStore.get(collectionName).removeCollection().then(function () {
+        showHideConsole("show");
          document.getElementById("apiCommands_screen").style.display = "none";
          document.getElementById("initCollection_screen").style.display = "block";
          document.getElementById("resultsDiv").innerHTML = "Collection Removed Successfuly";      		
@@ -194,16 +203,9 @@ function removeCollection(){
 // destroy
 // - Completely wipes data for all users
 //****************************************************
-function destroy(){
-    // If we destroyed the collection in the middle of a replace() action - then clear the fields and hide the div
-    if(in_middle_of_replace){
-        clearAndHideReplaceDiv();
-        document.getElementById("ReplaceDocDiv").style.display = "none";
-        in_middle_of_replace = false;
-    }
-    
+function destroy(){  
     WL.JSONStore.destroy().then(function () {
-		alert("Collection Destroyed Successfuly!");
+        showHideConsole("show");
         document.getElementById("apiCommands_screen").style.display = "none";
         document.getElementById("initCollection_screen").style.display = "block"; 
         document.getElementById("resultsDiv").innerHTML = "Collection Destroyed Successfuly";     		
@@ -222,8 +224,10 @@ function addData(){
     
     try {
         WL.JSONStore.get(collectionName).add(data).then(function () {
+            showHideConsole("show");
             document.getElementById("resultsDiv").innerHTML = "New Document Added Successfuly<br>Name: "+data.name+" | Age: "+data.age; 
 		}).fail(function (errorObject) {
+            showHideConsole("show");
             document.getElementById("resultsDiv").innerHTML = "Failed to Add Data";
 		}); 
     }
@@ -238,6 +242,7 @@ function addData(){
 // findById
 //****************************************************
 function findById(){
+    showHideConsole("show");
     var id = parseInt(document.getElementById("findWhat").value, 10) || '';
 
     try {
@@ -256,6 +261,7 @@ function findById(){
 // findByName
 //****************************************************
 function findByName(){
+    showHideConsole("show");
     var name = document.getElementById("findWhat").value || '';
     var query = {};
     query.name = name;
@@ -281,6 +287,7 @@ function findByName(){
 // findByAge
 //****************************************************
 function findByAge(){
+    showHideConsole("show");
     var age = document.getElementById("findWhat").value || '';
     if(age == "" || isNaN(age)){
         alert("Please enter a valid age to find"); 
@@ -310,6 +317,7 @@ function findByAge(){
 // findAll
 //****************************************************
 function findAll(){
+    showHideConsole("show");
     options.limit = 10;
 
     try {
@@ -328,9 +336,8 @@ function findAll(){
 // replaceShowDoc
 //****************************************************
 function replaceShowDoc(){
-   in_middle_of_replace = true;
-   var id = parseInt(document.getElementById("replaceDocId").value, 10);
-   document.getElementById("DocToReplaceDiv").style.display = "block";
+   var id = parseInt(document.getElementById("replaceDocId").value, 10);   
+   showHideConsole("hide");    
    try {
         WL.JSONStore.get(collectionName).findById(id).then(function (res) {
             document.getElementById("replaceName").value = res[0].json.name;
@@ -338,9 +345,9 @@ function replaceShowDoc(){
         }).fail(function (errorObject) {
             alert(errorObject.msg);
         });
-        } catch (e) {
-            alert(e.Messages);
-        }
+    } catch (e) {
+        alert(e.Messages);
+    }
 }
 
 //****************************************************
@@ -350,7 +357,7 @@ function clearAndHideReplaceDiv(){
     document.getElementById("replaceDocId").value = "";
     document.getElementById("replaceName").value = "";
     document.getElementById("replaceAge").value = "";
-    document.getElementById("DocToReplaceDiv").style.display = "none";
+    document.getElementById("ReplaceDocDiv").style.display = "none";
 }
 
 //****************************************************
@@ -367,14 +374,13 @@ function replaceDoc(){
     }
     
     WL.JSONStore.get(collectionName).replace(doc, options).then(function (numberOfDocumentsReplaced) {
+        showHideConsole("show"); 
         document.getElementById("resultsDiv").innerHTML = "Document updated successfuly";
         clearAndHideReplaceDiv();
-        in_middle_of_replace = false;
     })
     .fail(function (errorObject) {
         document.getElementById("resultsDiv").innerHTML = "Failed to update document: " + errorObject.msg
         clearAndHideReplaceDiv();
-        in_middle_of_replace = false;
     });
 }
 
@@ -382,6 +388,7 @@ function replaceDoc(){
 // removeDoc
 //****************************************************
 function removeDoc(){
+    showHideConsole("show"); 
     var id = parseInt(document.getElementById("docId").value, 10);
     var query = {_id: id};
     var options = {exact: true};
@@ -416,6 +423,7 @@ function countDocs(){
 // changePassword
 //****************************************************
 function changePassword(){
+    showHideConsole("show");
     var newPassword = document.getElementById("newPassword").value;
     if(newPassword == ""){
         alert("Please enter new password");

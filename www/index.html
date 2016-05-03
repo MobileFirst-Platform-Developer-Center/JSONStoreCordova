@@ -22,7 +22,7 @@ limitations under the License.
         <meta name="msapplication-tap-highlight" content="no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <!-- load script with wlCommonInit defined before loading cordova.js -->
+        <!-- load script with wlCommonInit defined before loading cordova.js -->        
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
 
@@ -65,22 +65,20 @@ limitations under the License.
                       <button id="submitNewDocumentData" class="submit">Submit</button>
                   </div>
                   <!-- Find Documents -->
-                  <div id="FindDocDiv" class="additionalInfoDiv">                      
-                    <input id='findWhat' type='text' placeholder='Find Criteria'/>                    
-                    <button id="findById" class="submit">Find by ID</button>
-                    <button id="findByName" class="submit">Find by Name</button>
-                    <button id="findByAge" class="submit">Find by Age</button><br/>
-                    <button id="findAll" class="WideSubmitButton">Find All</button>                    
+                  <div id="FindDocDiv" class="additionalInfoDiv">
+                      <input id='findWhat' type='text' placeholder='Find Criteria'/>
+                      <button id="findById" class="submit">Find by ID</button>
+                      <button id="findByName" class="submit">Find by Name</button>
+                      <button id="findByAge" class="submit">Find by Age</button><br/>
+                      <button id="findAll" class="WideSubmitButton">Find All</button>                    
                   </div>
                   <!-- Replace Documents Data -->
                   <div id="ReplaceDocDiv" class="additionalInfoDiv">
-                      <input id='replaceDocId' type='text' placeholder='ID of document to replace (update)'/>                    
-                      <button id="showDocToReplace" class="WideSubmitButton">Show Document</button>
-                      <div id="DocToReplaceDiv" style="padding-top:10px;display:none">
-                          <input id='replaceName' type='text'/>
-        		          <input id='replaceAge' type='text'/>
-                           <button id="submitReplacedDoc" class="WideSubmitButton">Replace (update document)</button>
-                      </div>
+                      <input id='replaceDocId' type='text' style="width:40%" placeholder='Document Id to replace'/>                    
+                      <button id="showDocToReplace" class="submit" style="width:50%">Display Document Info</button>                    
+                      <input id='replaceName' type='text' placeholder='Name' />
+        		      <input id='replaceAge' type='text' placeholder='Age' />
+                      <button id="submitReplacedDoc" class="WideSubmitButton">Replace</button>                      
                   </div>
                   <!-- Remove Documents -->
                   <div id="RemoveDocDiv" class="additionalInfoDiv">
@@ -97,7 +95,6 @@ limitations under the License.
            </div>
            <div id="console">
               <div id="resultsDiv"></div>                
-           </div>
-        
+           </div>        
     </body>
 </html>
