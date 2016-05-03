@@ -25,6 +25,17 @@ var collections = {};
 var options = {};
 collections[collectionName] = {};
 collections[collectionName].searchFields = {name: 'string', age: 'integer'};
+collections[collectionName].adapter = {
+    name: 'JSONStoreAdapter',
+    add: 'addPerson',
+    remove: 'removePerson',
+    replace: 'replacePerson',
+    load: {
+        procedure: 'getPeople',
+        params: [],
+        key: 'peopleList'
+    }
+};
 
 //****************************************************
 // wlCommonInit
@@ -49,6 +60,10 @@ function wlCommonInit(){
     document.getElementById("submitNewDocumentData").addEventListener("click", addData, false);
     document.getElementById("removeDoc").addEventListener("click", removeDoc, false);
     document.getElementById("submitNewPassword").addEventListener("click", changePassword, false); 
+    
+    document.getElementById("loadFromAdapter").addEventListener("click", loadFromAdapter, false); 
+    document.getElementById("getDirtyDocs").addEventListener("click", getDirtyDocs, false); 
+    document.getElementById("pushToAdapter").addEventListener("click", pushToAdapter, false); 
                         
     document.getElementById("initUsername").addEventListener("focus", showHideConsole, false);
     document.getElementById("initPassword").addEventListener("focus", showHideConsole, false);                 
@@ -86,8 +101,13 @@ function wlCommonInit(){
             showHideConsole("show");
             countDocs();
         }
-        // Change Password
+        // Adapter Integration
         else if(obj.selectedIndex == 6) {
+            showHideConsole("show");
+            displayDiv("AdapterIntegrationDiv");
+        }
+        // Change Password
+        else if(obj.selectedIndex == 7) {
             displayDiv("ChangePasswordDiv");
         }
     });
@@ -99,14 +119,15 @@ function wlCommonInit(){
 //   of the API-select-object after initialization of the collection
 //*********************************************************************
 function buildSelectOptions(obj){
-    obj.options[1] = new Option("addData", "Add Data", true, false);
-    obj.options[2] = new Option("findDoc", "Find Document", true, false);
-    obj.options[3] = new Option("replaceDoc", "Replace Document", true, false);
-    obj.options[4] = new Option("removeDoc", "Remove Document", true, false);
-    obj.options[5] = new Option("countDocs", "Count Documents", true, false);
-    
+    //obj.options[1] = new Option("addData", "Add Data", true, false);
+    obj.options[1] = new Option("Add Data");
+    obj.options[2] = new Option("Find Document");
+    obj.options[3] = new Option("Replace Document");
+    obj.options[4] = new Option("Remove Document");
+    obj.options[5] = new Option("Count Documents");
+    obj.options[6] = new Option("Adapter Integration");
     if(options.username != undefined && options.password != undefined){
-        obj.options[6] = new Option("changePassword", "Change Password", true, false);
+        obj.options[7] = new Option("Change Password");
     }    
 }
 
@@ -117,7 +138,7 @@ function buildSelectOptions(obj){
 //   for the new document to add. 
 //*********************************************************************
 function displayDiv(divName){
-   var divNames = ["AddDataDiv", "FindDocDiv", "ReplaceDocDiv", "RemoveDocDiv", "ChangePasswordDiv"];
+   var divNames = ["AddDataDiv", "FindDocDiv", "ReplaceDocDiv", "RemoveDocDiv", "AdapterIntegrationDiv", "ChangePasswordDiv"];
    for(i=0; i<divNames.length; i++){
        document.getElementById(divNames[i]).style.display = "none";
    }
@@ -417,6 +438,27 @@ function countDocs(){
 	} catch (e) {
 		alert(e.Messages);
 	}
+}
+
+//****************************************************
+// loadFromAdapter
+//****************************************************
+function loadFromAdapter(){
+    alert("loadFromAdapter");
+}
+
+//****************************************************
+// getDirtyDocs
+//****************************************************
+function getDirtyDocs(){
+    alert("getDirtyDocs");
+}
+
+//****************************************************
+// pushToAdapter
+//****************************************************
+function pushToAdapter(){
+    alert("pushToAdapter");
 }
 
 //****************************************************
