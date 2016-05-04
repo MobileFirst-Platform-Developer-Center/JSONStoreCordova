@@ -106,10 +106,15 @@ function wlCommonInit(){
             showHideConsole("show");
             displayDiv("AdapterIntegrationDiv");
         }
-        // Change Password
+        // File Info
         else if(obj.selectedIndex == 7) {
-            displayDiv("ChangePasswordDiv");
+            showHideConsole("show");
+            getFileInfo();
         }
+        // Change Password
+        else if(obj.selectedIndex == 8) {
+            displayDiv("ChangePasswordDiv");
+        }        
     });
 }
 
@@ -126,9 +131,11 @@ function buildSelectOptions(obj){
     obj.options[4] = new Option("Remove Document");
     obj.options[5] = new Option("Count Documents");
     obj.options[6] = new Option("Adapter Integration");
+    obj.options[7] = new Option("File Info"); 
     if(options.username != undefined && options.password != undefined){
-        obj.options[7] = new Option("Change Password");
-    }    
+        obj.options[8] = new Option("Change Password");
+    }
+       
 }
 
 //*********************************************************************
@@ -171,22 +178,22 @@ function initCollection(isSecured){
         options.password = document.getElementById("initPassword").value;
     }  
      
-	WL.JSONStore.init(collections, options)
-      .then(function () {
-            buildSelectOptions(document.getElementById("api_select"));
-            document.getElementById("initCollection_screen").style.display = "none";
-            document.getElementById("apiCommands_screen").style.display = "block";
-            if(isSecured == "secured") {
-                showHideConsole("show");
-                document.getElementById("resultsDiv").innerHTML = "Secured Collection Initialized Successfuly<br>User Name: "
-                                                                    + options.username +" | Password: "+ options.password;
-            }
-            else {
-                document.getElementById("resultsDiv").innerHTML = "Collection Initialized Successfuly";
-            }
-	    })
-        .fail(function (errorObject) {
-            alert("Filed to initialize collection\n"+ JSON.stringify(errorObject));
+	WL.JSONStore.init(collections, options).then(function () {
+        buildSelectOptions(document.getElementById("api_select"));
+        document.getElementById("initCollection_screen").style.display = "none";
+        document.getElementById("apiCommands_screen").style.display = "block";
+        if(isSecured == "secured") {
+            showHideConsole("show");
+            document.getElementById("resultsDiv").innerHTML = "Secured Collection Initialized Successfuly<br>User Name: "+ options.username +" | Password: "+ options.password;
+            document.getElementById("initUsername").value = "";
+            document.getElementById("initPassword").value = "";
+        }
+        else {
+            document.getElementById("resultsDiv").innerHTML = "Collection Initialized Successfuly";
+        }
+    })
+    .fail(function (errorObject) {
+        alert("Filed to initialize collection\n"+ JSON.stringify(errorObject));
 	});   
 }
 
@@ -506,6 +513,24 @@ function changePassword(){
         });
     }
 }
+
+//****************************************************
+// getFileInfo
+//****************************************************
+function getFileInfo(){
+    try {
+        WL.JSONStore.fileInfo()
+        .then(function (res) {
+            document.getElementById("resultsDiv").innerHTML = JSON.stringify(res);
+        })
+        .fail(function () {
+            alert("Failed To Get File Information");
+        });
+    } catch (e) {
+        alert("Failed To Get File Information");
+    }
+}
+
 
 
 
