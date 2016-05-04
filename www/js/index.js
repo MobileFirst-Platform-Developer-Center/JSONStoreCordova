@@ -179,12 +179,15 @@ function initCollection(isSecured){
     }  
      
 	WL.JSONStore.init(collections, options).then(function () {
+        // build the <select> options + hide the init screen + display the second screen
         buildSelectOptions(document.getElementById("api_select"));
         document.getElementById("initCollection_screen").style.display = "none";
         document.getElementById("apiCommands_screen").style.display = "block";
+        
         if(isSecured == "secured") {
             showHideConsole("show");
             document.getElementById("resultsDiv").innerHTML = "Secured Collection Initialized Successfuly<br>User Name: "+ options.username +" | Password: "+ options.password;
+            // Clear the username & password fields
             document.getElementById("initUsername").value = "";
             document.getElementById("initPassword").value = "";
         }
@@ -247,11 +250,12 @@ function destroy(){
 //****************************************************
 function addData(){
     var data = {};
+    var options = {};
     data.name = document.getElementById("addName").value;
     data.age = document.getElementById("addAge").value;
     
     try {
-        WL.JSONStore.get(collectionName).add(data).then(function () {
+        WL.JSONStore.get(collectionName).add(data, options).then(function () {
             showHideConsole("show");
             document.getElementById("resultsDiv").innerHTML = "New Document Added Successfuly<br>Name: "+data.name+" | Age: "+data.age; 
 		}).fail(function (errorObject) {
