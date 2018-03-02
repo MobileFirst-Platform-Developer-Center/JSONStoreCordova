@@ -555,9 +555,6 @@ function pushToAdapter(){
 
         .then(function (res) {
           // Handle markClean success.
-
-          console.log(">>>>>" + JSON.stringify(res));
-
           document.getElementById("resultsDiv").innerHTML = JSON.stringify(res) + "Documents Pushed Successfully";
 
         })
