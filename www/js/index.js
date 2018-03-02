@@ -25,16 +25,6 @@ var collections = {};
 var options = {};
 collections[collectionName] = {};
 collections[collectionName].searchFields = {name: 'string', age: 'integer'};
-collections[collectionName].adapter = {
-        name: 'JSONStoreAdapter',
-        procedures: {
-            add: 'addPerson',
-            remove: 'removePerson',
-            replace: 'replacePerson',
-            load: 'getPeople',
-            push: 'pushPeople'
-        }
-};
 
 //****************************************************
 // wlCommonInit
@@ -455,17 +445,12 @@ function countDocs(){
 function loadFromAdapter(){
     try {
 
-        var resource = new WLResourceRequest("adapters/" + collections[collectionName].adapter.name + "/" + collections[collectionName].adapter.procedures.load, WLResourceRequest.GET);
+        var resource = new WLResourceRequest("adapters/JSONStoreAdapter/getPeople", WLResourceRequest.GET);
 
         resource.send()
 
         .then(function (responseFromAdapter) {
           // Handle invokeProcedure success.
-
-          // The following example assumes that the adapter returns an arrayOfData,
-          // (which is not returned by default),
-          // as part of the invocationResult object,
-          // with the data that you want to add to the collection.
 
           var data = responseFromAdapter.responseJSON.peopleList;
 
@@ -540,7 +525,7 @@ function pushToAdapter(){
 
           dirtyDocs = arrayOfDirtyDocuments;
 
-          var resource = new WLResourceRequest("adapters/" + collections[collectionName].adapter.name + "/" + collections[collectionName].adapter.procedures.push, WLResourceRequest.GET);
+          var resource = new WLResourceRequest("adapters/JSONStoreAdapter/pushPeople", WLResourceRequest.POST);
           resource.setQueryParameter('params', [dirtyDocs]);
           resource.addHeader("Content-Type","application/x-www-form-urlencoded");
           return resource.send();
