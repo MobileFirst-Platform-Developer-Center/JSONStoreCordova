@@ -542,6 +542,7 @@ function pushToAdapter(){
 
           var resource = new WLResourceRequest("adapters/" + collections[collectionName].adapter.name + "/" + collections[collectionName].adapter.procedures.push, WLResourceRequest.GET);
           resource.setQueryParameter('params', [dirtyDocs]);
+          resource.addHeader("Content-Type","application/x-www-form-urlencoded");
           return resource.send();
         })
 
