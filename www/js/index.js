@@ -25,17 +25,6 @@ var collections = {};
 var options = {};
 collections[collectionName] = {};
 collections[collectionName].searchFields = {name: 'string', age: 'integer'};
-collections[collectionName].adapter = {
-    name: 'JSONStoreAdapter',
-    add: 'addPerson',
-    remove: 'removePerson',
-    replace: 'replacePerson',
-    load: {
-        procedure: 'getPeople',
-        params: [],
-        key: 'peopleList'
-    }
-};
 
 //****************************************************
 // wlCommonInit
@@ -44,35 +33,35 @@ function wlCommonInit(){
     // Bind buttons click/inputs focus events to the appropriate function
     document.getElementById("initCollection").addEventListener("click", initCollection, false);
     document.getElementById("initSecuredCollection").addEventListener("click", function(){ initCollection("secured"); }, false);
-    
+
     document.getElementById("closeCollectionButton").addEventListener("click", closeCollection, false);
     document.getElementById("removeCollectionButton").addEventListener("click", removeCollection, false);
     document.getElementById("destroyAllCollectionsButton").addEventListener("click", destroy, false);
-        
+
     document.getElementById("findById").addEventListener("click", findById, false);
     document.getElementById("findByName").addEventListener("click", findByName, false);
     document.getElementById("findByAge").addEventListener("click", findByAge, false);
     document.getElementById("findAll").addEventListener("click", findAll, false);
-    
+
     document.getElementById("showDocToReplace").addEventListener("click", replaceShowDoc, false);
     document.getElementById("submitReplacedDoc").addEventListener("click", replaceDoc, false);
-        
+
     document.getElementById("submitNewDocumentData").addEventListener("click", addData, false);
     document.getElementById("removeDoc").addEventListener("click", removeDoc, false);
-    document.getElementById("submitNewPassword").addEventListener("click", changePassword, false); 
-    
-    document.getElementById("loadFromAdapter").addEventListener("click", loadFromAdapter, false); 
-    document.getElementById("getDirtyDocs").addEventListener("click", getDirtyDocs, false); 
-    document.getElementById("pushToAdapter").addEventListener("click", pushToAdapter, false); 
-                        
+    document.getElementById("submitNewPassword").addEventListener("click", changePassword, false);
+
+    document.getElementById("loadFromAdapter").addEventListener("click", loadFromAdapter, false);
+    document.getElementById("getDirtyDocs").addEventListener("click", getDirtyDocs, false);
+    document.getElementById("pushToAdapter").addEventListener("click", pushToAdapter, false);
+
     document.getElementById("initUsername").addEventListener("focus", showHideConsole, false);
-    document.getElementById("initPassword").addEventListener("focus", showHideConsole, false);                 
+    document.getElementById("initPassword").addEventListener("focus", showHideConsole, false);
     document.getElementById("addName").addEventListener("focus", showHideConsole, false);
-    document.getElementById("addAge").addEventListener("focus", showHideConsole, false); 
-    document.getElementById("findWhat").addEventListener("focus", showHideConsole, false); 
+    document.getElementById("addAge").addEventListener("focus", showHideConsole, false);
+    document.getElementById("findWhat").addEventListener("focus", showHideConsole, false);
     document.getElementById("docId").addEventListener("focus", showHideConsole, false);
-    document.getElementById("newPassword").addEventListener("focus", showHideConsole, false);  
-    
+    document.getElementById("newPassword").addEventListener("focus", showHideConsole, false);
+
     // Get the selected API from the HTML select element and use the displayDiv() function to display the appropriate HTML div
     var obj = document.getElementById("api_select");
     obj.addEventListener("change", function() {
@@ -83,7 +72,7 @@ function wlCommonInit(){
         }
         // Find Document
         else if(obj.selectedIndex == 2) {
-            showHideConsole("show"); 
+            showHideConsole("show");
             displayDiv("FindDocDiv");
         }
         // Replace Document
@@ -114,13 +103,13 @@ function wlCommonInit(){
         // Change Password
         else if(obj.selectedIndex == 8) {
             displayDiv("ChangePasswordDiv");
-        }        
+        }
     });
 }
 
 //*********************************************************************
 // buildSelectOptions
-// - This function builds the options of the API-select-object 
+// - This function builds the options of the API-select-object
 //   of the API-select-object after initialization of the collection
 //*********************************************************************
 function buildSelectOptions(obj){
@@ -131,18 +120,18 @@ function buildSelectOptions(obj){
     obj.options[4] = new Option("Remove Document");
     obj.options[5] = new Option("Count Documents");
     obj.options[6] = new Option("Adapter Integration");
-    obj.options[7] = new Option("File Info"); 
+    obj.options[7] = new Option("File Info");
     if(options.username != undefined && options.password != undefined){
         obj.options[8] = new Option("Change Password");
     }
-       
+
 }
 
 //*********************************************************************
 // displayDiv
-// - This function shows / hides the divs for the apis that require 
+// - This function shows / hides the divs for the apis that require
 //   additional data. For example: add data requires new name & age
-//   for the new document to add. 
+//   for the new document to add.
 //*********************************************************************
 function displayDiv(divName){
     var divNames = ["AddDataDiv", "FindDocDiv", "ReplaceDocDiv", "RemoveDocDiv", "AdapterIntegrationDiv", "ChangePasswordDiv"];
@@ -158,10 +147,10 @@ function displayDiv(divName){
 //   and adjust the container div height accordingly
 //****************************************************
 function showHideConsole(displayStatus){
-    if(displayStatus == "show"){              
+    if(displayStatus == "show"){
        document.getElementById("container").style.height = "80%";
        document.getElementById("console").style.height = "20%";
-       document.getElementById("console").style.display = "block";  
+       document.getElementById("console").style.display = "block";
     }
     else{
        document.getElementById("container").style.height = "100%";
@@ -176,14 +165,14 @@ function initCollection(isSecured){
     if(isSecured == "secured"){
         options.username = document.getElementById("initUsername").value;
         options.password = document.getElementById("initPassword").value;
-    }  
-     
+    }
+
 	WL.JSONStore.init(collections, options).then(function () {
         // build the <select> options + hide the init screen + display the second screen
         buildSelectOptions(document.getElementById("api_select"));
         document.getElementById("initCollection_screen").style.display = "none";
         document.getElementById("apiCommands_screen").style.display = "block";
-        
+
         if(isSecured == "secured") {
             showHideConsole("show");
             document.getElementById("resultsDiv").innerHTML = "Secured Collection Initialized Successfuly<br>User Name: "+ options.username +" | Password: "+ options.password;
@@ -197,7 +186,7 @@ function initCollection(isSecured){
     })
     .fail(function (errorObject) {
         alert("Filed to initialize collection\n"+ JSON.stringify(errorObject));
-	});   
+	});
 }
 
 //****************************************************
@@ -209,7 +198,7 @@ function closeCollection(){
         showHideConsole("show");
         document.getElementById("apiCommands_screen").style.display = "none";
         document.getElementById("initCollection_screen").style.display = "block";
-        document.getElementById("resultsDiv").innerHTML = "Collection Closed Successfuly";      		
+        document.getElementById("resultsDiv").innerHTML = "Collection Closed Successfuly";
 	}).fail(function (errorObject) {
 		alert("Failed to Close collection!");
 	});
@@ -217,14 +206,14 @@ function closeCollection(){
 
 //****************************************************
 // removeCollection
-// - Deletes all the collection's documents 
+// - Deletes all the collection's documents
 //****************************************************
-function removeCollection(){    
+function removeCollection(){
     WL.JSONStore.get(collectionName).removeCollection().then(function () {
         showHideConsole("show");
         document.getElementById("apiCommands_screen").style.display = "none";
         document.getElementById("initCollection_screen").style.display = "block";
-        document.getElementById("resultsDiv").innerHTML = "Collection Removed Successfuly";      		
+        document.getElementById("resultsDiv").innerHTML = "Collection Removed Successfuly";
 	}).fail(function (errorObject) {
 		alert("Failed to Remove collection!");
 	});
@@ -234,12 +223,12 @@ function removeCollection(){
 // destroy
 // - Completely wipes data for all users
 //****************************************************
-function destroy(){  
+function destroy(){
     WL.JSONStore.destroy().then(function () {
         showHideConsole("show");
         document.getElementById("apiCommands_screen").style.display = "none";
-        document.getElementById("initCollection_screen").style.display = "block"; 
-        document.getElementById("resultsDiv").innerHTML = "Collection Destroyed Successfuly";     		
+        document.getElementById("initCollection_screen").style.display = "block";
+        document.getElementById("resultsDiv").innerHTML = "Collection Destroyed Successfuly";
 	}).fail(function (errorObject) {
 		alert("Failed to Destroy collection!");
 	});
@@ -253,18 +242,18 @@ function addData(){
     var options = {};
     data.name = document.getElementById("addName").value;
     data.age = document.getElementById("addAge").value;
-    
+
     try {
         WL.JSONStore.get(collectionName).add(data, options).then(function () {
             showHideConsole("show");
-            document.getElementById("resultsDiv").innerHTML = "New Document Added Successfuly<br>Name: "+data.name+" | Age: "+data.age; 
+            document.getElementById("resultsDiv").innerHTML = "New Document Added Successfuly<br>Name: "+data.name+" | Age: "+data.age;
 		}).fail(function (errorObject) {
             showHideConsole("show");
             document.getElementById("resultsDiv").innerHTML = "Failed to Add Data";
-		}); 
+		});
     }
     catch(e){
-        alert("WL.JSONStore Add Data Failure");  
+        alert("WL.JSONStore Add Data Failure");
     }
     document.getElementById("addName").value = "";
     document.getElementById("addAge").value = "";
@@ -306,7 +295,7 @@ function findByName(){
         });
         } catch (e) {
             alert(e.Messages);
-        } 
+        }
     }
     else {
         alert("Please enter a name to find");
@@ -320,17 +309,17 @@ function findByName(){
 function findByAge(){
     showHideConsole("show");
     var age = document.getElementById("findWhat").value || '';
-    
+
     if(age == "" || isNaN(age)){
-        alert("Please enter a valid age to find"); 
+        alert("Please enter a valid age to find");
     }
     else {
         query = {age: parseInt(age, 10)};
         var options = {
             exact: true,
             limit: 10 //returns a maximum of 10 documents
-        }; 
-        
+        };
+
         try {
             WL.JSONStore.get(collectionName).find(query, options).then(function (res) {
             document.getElementById("resultsDiv").innerHTML = JSON.stringify(res);
@@ -339,7 +328,7 @@ function findByAge(){
         });
         } catch (e) {
             alert(e.Messages);
-        } 
+        }
     }
     document.getElementById("findWhat").value = "";
 }
@@ -352,7 +341,7 @@ function findAll(){
     options.limit = 10;
 
     try {
-        WL.JSONStore.get(collectionName).findAll(options).then(function (res) {           
+        WL.JSONStore.get(collectionName).findAll(options).then(function (res) {
             document.getElementById("resultsDiv").innerHTML = JSON.stringify(res);
 		}).fail(function (errorObject) {
             document.getElementById("resultsDiv").innerHTML = errorObject.msg;
@@ -367,8 +356,8 @@ function findAll(){
 // replaceShowDoc
 //****************************************************
 function replaceShowDoc(){
-   var id = parseInt(document.getElementById("replaceDocId").value, 10);   
-   showHideConsole("hide");    
+   var id = parseInt(document.getElementById("replaceDocId").value, 10);
+   showHideConsole("hide");
    try {
         WL.JSONStore.get(collectionName).findById(id).then(function (res) {
             document.getElementById("replaceName").value = res[0].json.name;
@@ -399,13 +388,13 @@ function replaceDoc(){
     var doc_name = document.getElementById("replaceName").value;
     var doc_age = document.getElementById("replaceAge").value;
     var doc = {_id: doc_id, json: {name: doc_name, age: doc_age}};
-    
+
     var options = {
         push: true
     }
-    
+
     WL.JSONStore.get(collectionName).replace(doc, options).then(function (numberOfDocumentsReplaced) {
-        showHideConsole("show"); 
+        showHideConsole("show");
         document.getElementById("resultsDiv").innerHTML = "Document updated successfuly";
         clearAndHideReplaceDiv();
     })
@@ -419,11 +408,11 @@ function replaceDoc(){
 // removeDoc
 //****************************************************
 function removeDoc(){
-    showHideConsole("show"); 
+    showHideConsole("show");
     var id = parseInt(document.getElementById("docId").value, 10);
     var query = {_id: id};
     var options = {exact: true};
-    try {	
+    try {
 	    WL.JSONStore.get(collectionName).remove(query, options).then(function (res) {
             document.getElementById("resultsDiv").innerHTML = "Documents removed: " + JSON.stringify(res)
 		}).fail(function (errorObject) {
@@ -439,7 +428,7 @@ function removeDoc(){
 // countDocs
 //****************************************************
 function countDocs(){
-    try {	
+    try {
 	    WL.JSONStore.get(collectionName).count().then(function (res) {
             document.getElementById("resultsDiv").innerHTML = "Number of documents in the collection: " + res;
 		}).fail(function (errorObject) {
@@ -454,22 +443,60 @@ function countDocs(){
 // loadFromAdapter
 //****************************************************
 function loadFromAdapter(){
-    try {	
-        WL.JSONStore.get(collectionName).load().then(function (res) {
-            document.getElementById("resultsDiv").innerHTML = JSON.stringify(res) + " Documents Loaded From Adapter";
-        }).fail(function (errorObject) {
-            document.getElementById("resultsDiv").innerHTML = errorObject.msg;
-        });	
+    try {
+
+        var resource = new WLResourceRequest("adapters/JSONStoreAdapter/getPeople", WLResourceRequest.GET);
+
+        resource.send()
+
+        .then(function (responseFromAdapter) {
+          // Handle invokeProcedure success.
+
+          var data = responseFromAdapter.responseJSON.peopleList;
+
+          // Example:
+          // data = [{id: 1, ssn: '111-22-3333', name: 'carlos'}];
+
+          var changeOptions = {
+
+            // The following example assumes that 'id' and 'ssn' are search fields,
+            // default will use all search fields
+            // and are part of the data that is received.
+            replaceCriteria : ['id', 'ssn'],
+
+            // Data that does not exist in the Collection will be added, default false.
+            addNew : true,
+
+            // Mark data as dirty (true = yes, false = no), default false.
+            markDirty : false
+          };
+
+          return WL.JSONStore.get(collectionName).change(data, changeOptions);
+        })
+
+        .then(function (res) {
+
+           // Handle change success.
+          document.getElementById("resultsDiv").innerHTML = JSON.stringify(res) + " Documents Loaded From Adapter" ;
+        })
+
+        .fail(function (errorObject) {
+          // Handle failure.
+          document.getElementById("resultsDiv").innerHTML = errorObject.msg;
+        });
+
+
     } catch (e) {
-        alert("Failed to load data from adapter " + e.Messages);
+            alert("Failed to load data from adapter " + e.Messages);
     }
+
 }
 
 //****************************************************
 // getDirtyDocs
 //****************************************************
 function getDirtyDocs(){
-    try {	
+    try {
         WL.JSONStore.get(collectionName).getAllDirty().then(function (res) {
             document.getElementById("resultsDiv").innerHTML = "Dirty Documents:<br>" + JSON.stringify(res);
         }).fail(function (errorObject) {
@@ -486,15 +513,45 @@ function getDirtyDocs(){
 function pushToAdapter(){
     alert("pushToAdapter");
     try {
-        WL.JSONStore.get(collectionName).push().then(function (res) {
-            if(Array.isArray(res) && res.length < 1){
-                document.getElementById("resultsDiv").innerHTML = "Documents Pushed Successfuly";
-            } else {
-                document.getElementById("resultsDiv").innerHTML = "Failed To Push Documents to Adapter: "+ res[0].errorObject;
-            }	
-        }).fail(function (errorObject) {
-            alert(errorObject.msg);
+
+        var dirtyDocs;
+
+        WL.JSONStore.get(collectionName)
+
+        .getAllDirty()
+
+        .then(function (arrayOfDirtyDocuments) {
+          // Handle getAllDirty success.
+
+          dirtyDocs = arrayOfDirtyDocuments;
+
+          var resource = new WLResourceRequest("adapters/JSONStoreAdapter/pushPeople", WLResourceRequest.POST);
+          resource.setQueryParameter('params', [dirtyDocs]);
+          resource.addHeader("Content-Type","application/x-www-form-urlencoded");
+          return resource.send();
+        })
+
+        .then(function (responseFromAdapter) {
+          // Handle invokeProcedure success.
+
+          // You may want to check the response from the adapter
+          // and decide whether or not to mark documents as clean.
+          return WL.JSONStore.get(collectionName).markClean(dirtyDocs);
+        })
+
+        .then(function (res) {
+          // Handle markClean success.
+          document.getElementById("resultsDiv").innerHTML = JSON.stringify(res) + "Documents Pushed Successfully";
+
+        })
+
+        .fail(function (errorObject) {
+          // Handle failure.
+          alert(errorObject.msg);
         });
+
+
+
     } catch (e) {
         alert("Failed To Push Documents to Adapter");
     }
@@ -534,7 +591,3 @@ function getFileInfo(){
         alert("Failed To Get File Information");
     }
 }
-
-
-
-
